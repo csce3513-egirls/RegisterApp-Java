@@ -55,7 +55,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Serve up the page
 		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
-
+	//Here is the first task to complete in employee detail
 	// Helper methods
 	private boolean activeUserExists() {
 		// TODO: Helper method to determine if any active users Exist
