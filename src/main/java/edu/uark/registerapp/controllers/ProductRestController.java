@@ -36,6 +36,7 @@ public class ProductRestController extends BaseRestController {
 				response,
 				ViewNames.PRODUCT_LISTING.getRoute());
 
+		// String Utils Error here
 		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
 			return elevatedUserResponse;
 		}
