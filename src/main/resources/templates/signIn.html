@@ -22,10 +22,18 @@
 		</div>
 
 		<form action="/" method="POST" onsubmit="return validateForm();" class="inputContent">
-			<!-- TODO: Form input elements -->
+			<!-- TODO: Form input elements DONE-->
+			<fieldset>
+                <label for="employee_id">Employee ID:</label><br>
+                <input type="number" id="employee_id" name="employee_id" th:value="value=#{employeeId}"><br>
+                <label for="password">Password:</label><br>
+                <input type="password" id="password" name="password" th:value="value=#{password}"><br>
+                <input type="submit" value="Sign in"><br>
+            </fieldset>
 		</form>
 	</div>
 		
 </body>
 
 </html>
+
