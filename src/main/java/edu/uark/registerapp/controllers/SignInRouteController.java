@@ -1,6 +1,7 @@
 package edu.uark.registerapp.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import java.util.Map;
 
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
+import edu.uark.registerapp.models.entities.ActiveUserEntity;
 
 @Controller
 @RequestMapping(value = "/")
@@ -24,7 +26,7 @@ public class SignInRouteController extends BaseRouteController {
             // if employees exist, proceed to sign in
             // if no employees exist, exception is caught and user is redirected to the employee detail view/document
 
-            // ActiveEmployeeExistsQuery query = new ActiveEmployeeExistsQuery();
+			// ActiveEmployeeExistsQuery query = new ActiveEmployeeExistsQuery();
         }
         catch(Exception e){
             System.out.println("An error ocurred: " + e + "\n");
@@ -32,7 +34,7 @@ public class SignInRouteController extends BaseRouteController {
 			REDIRECT_PREPEND.concat(
 			ViewNames.EMPLOYEE_DETAIL.getRoute()));
         }      
-        return new ModelAndView(ViewNames.SIGN_IN.getRoute());
+        return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute()));
     }
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -45,8 +47,17 @@ public class SignInRouteController extends BaseRouteController {
 		// TODO: Use the credentials provided in the request body
 		//  and the "id" property of the (HttpServletRequest)request.getSession() variable
 		//  to sign in the user
-
-		// EmployeeSignInCommand command = new EmployeeSignInCommand(employee, consumes);
+		try{
+			HttpSession session = request.getSession();
+			String session_id = session.getId();
+			// EmployeeSignInCommand command = new EmployeeSignInCommand(employee, session_id);
+			// command.validate();
+			// command.createTable();
+		}
+		catch(Exception e){
+			System.out.println("An error ocurred: " + e + "\n");
+			return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute()));
+		}
 
 		return new ModelAndView(
 			REDIRECT_PREPEND.concat(

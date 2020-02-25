@@ -1,6 +1,7 @@
 package edu.uark.registerapp.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +20,10 @@ public class SignInRestController extends BaseRestController {
 	) {
 
 		// TODO: Sign out the user associated with request.getSession().getId()
+		HttpSession session = request.getSession();
+		String session_id = session.getId();
+		// ActiveUserDeleteCommand delete = new ActiveUserDeleteCommand(session_id);
+
 
 		return (new ApiResponse())
 			.setRedirectUrl(ViewNames.SIGN_IN.getRoute());
