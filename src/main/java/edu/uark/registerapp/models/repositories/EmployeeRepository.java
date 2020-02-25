@@ -12,5 +12,4 @@ public interface EmployeeRepository extends CrudRepository<EmployeeEntity, UUID>
 	boolean existsByEmployeeId(int employeeId);
 	Optional<EmployeeEntity> findById(UUID id);
     Optional<EmployeeEntity> findByEmployeeId(int employeeId);
-    void deleteById(UUID id); //TODO: Find out if this works
 }
