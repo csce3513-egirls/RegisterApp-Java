@@ -5,6 +5,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +37,6 @@ public class ProductRestController extends BaseRestController {
 				response,
 				ViewNames.PRODUCT_LISTING.getRoute());
 
-		// String Utils Error here
 		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
 			return elevatedUserResponse;
 		}
@@ -49,29 +49,54 @@ public class ProductRestController extends BaseRestController {
 	@RequestMapping(value = "/{productId}", method = RequestMethod.PUT)
 	public @ResponseBody ApiResponse updateProduct(
 		@PathVariable final UUID productId,
-		@RequestBody final Product product
+		@RequestBody final Product product,
+		final HttpServletRequest request,
+		final HttpServletResponse response
 	) {
 
-		// TODO: Verify that the user associated with the current session is elevated
+		final ApiResponse elevatedUserResponse =
+			this.redirectUserNotElevated(
+				request,
+				response,
+				ViewNames.PRODUCT_LISTING.getRoute());
 
+		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
+			return elevatedUserResponse;
+		}
+		// TODO: Verify that the user associated with the current session is elevated
+		else
+		{
 		return this.productUpdateCommand
 			.setProductId(productId)
 			.setApiProduct(product)
 			.execute();
+		}
 	}
 
 	@RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
 	public @ResponseBody ApiResponse deleteProduct(
-		@PathVariable final UUID productId
+		@PathVariable final UUID productId,
+		final HttpServletRequest request,
+		final HttpServletResponse response
 	) {
 
-		// TODO: Verify that the user associated with the current session is elevated
+		final ApiResponse elevatedUserResponse =
+			this.redirectUserNotElevated(
+				request,
+				response,
+				ViewNames.PRODUCT_LISTING.getRoute());
 
+		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
+			return elevatedUserResponse;
+		}
+		// TODO: Verify that the user associated with the current session is elevated
+		else
+		{
 		this.productDeleteCommand
 			.setProductId(productId)
 			.execute();
-
 		return new ApiResponse();
+		}
 	}
 
 	// Properties
