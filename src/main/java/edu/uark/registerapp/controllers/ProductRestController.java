@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.products.ProductCreateCommand;
 import edu.uark.registerapp.commands.products.ProductDeleteCommand;
@@ -71,6 +72,8 @@ public class ProductRestController extends BaseRestController {
 			.setApiProduct(product)
 			.execute();
 		}
+		//ModelAndView modelAndView = new ModelAndView(viewName, modelName, modelObject);
+		//modelAndView.addObject(attributeValue);
 	}
 
 	@RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
