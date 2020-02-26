@@ -5,17 +5,46 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="/styles/master.css">
+	<link rel="stylesheet" type="text/css" href="/styles/employeeDetail.css"> 
 
 	<script type="text/javascript" src="/scripts/master.js" defer></script>
-	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script>
+	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script> <!-- -->
+	<script type="text/javascript">
+		function firstName()
+		{
+			Packages.edu.uark.registerapp.models.repositories.EmployeeRepository;
+			var id = document.getElementById("employeeId");
+			var check = EmployeeRepository.existsByEmployeeId(id);
+			if (check == true)
+			{
+				alert("Check is true");
+			}
+			else
+			{
+				alert("Check is false");
+			}
+		}
+		function signOut()
+		{
+			alert("signed out");
+		}
+		function save()
+		{
+			document.getElementById("saved").innerHTML="Employee Saved";
+		}
+		function eventListener()
+		{
+			document.getElementById("initiateSave").addEventListener("click", eventListener());
+			document.getElementById("demo").innerHTML;
+		}
+	</script> 
 </head>
 
-<body>
-
+<body onload=eventListener()>
 	<div class="header">
 		<h1 class="primary-message">Employee Detail</h1>
 	</div>
-		
+
 	<div id="main" class="main">
 		<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
@@ -27,7 +56,7 @@
 					<tr class="hidden">
 						<td>ID:</td>
 						<td>
-							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" />
+							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" onload=firstName() />
 						</td>
 					</tr>
 					<tr class="hidden">
@@ -43,26 +72,63 @@
 						</td>
 					</tr>
 					<!-- TODO: Other employee inputs -->
+					<tr th:class="${employee.isEmpty} ? hidden : ''">
+						<td class="label">Employee First Name:</td>
+						<td>
+							<input id="employeeFirstName" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"  />
+						</td>
+					</tr>
+					<tr th:class="${employee.isEmpty} ? hidden : ''">
+						<td class="label">Employee Last Name:</td>
+						<td>
+							<input id="employeLastName" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"/>
+						</td>
+					</tr>
+					<tr th:class="${employee.isEmpty} ? hidden : ''">
+						<td class="label">Employee Password:</td>
+						<td>
+							<input id="employeePassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"/>
+						</td>
+					</tr>
+					<tr th:class="${employee.isEmpty} ? hidden : ''">
+						<td class="label">Re-Enter Password:</td>
+						<td>
+							<input id="employeeRecheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" />
+						</td>
+					</tr>	
+				   <tr th:class="${employee.isEmpty} ? hidden : ''">
+					  <td>
+					  <label>Employee type: </label>
+					  <select id = "myList">
+    					    <option value = "1">Cashier</option>
+							<option value = "2">Shift Manager</option>
+							<option value = "3">General Manager</option>
+					  </select>
+					  </td>
+					</tr>
+
 				</tbody>
 			</table>
 		</div>
 
 		<!-- TODO: An action element to initiate a save -->
-
-		<div id="employeeSavedAlertModal" class="modal animate-opacity-show">
+		<div id="employeeSavedAlertModal" class="modal animate-opacity-show"><br>
+			<button type="button" id="initiateSave" action="PUT /new.html HTTP/1.1" onclick=save()>Save</button>
+			<p id="demo"></p>
+			<div id="saved"></div><br>
 			<div class="modal-content">
 				<div class="container gray-blue">
-					<h1>
+<!--				<h1>
 						<span>Employee</span><br />
 						<span>Saved</span>
-					</h1>
+					</h1>  -->
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
-		<img id="signOutImage" src="/images/Sign-Out.png" alt="Sign Out" class="footer" />
+		<img type="button" onclick=signOut() id="signOutImage" src="1xhand.png" alt="Sign Out" class="footer" />   Sign Out
 	</div>
 
 </body>
