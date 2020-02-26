@@ -27,6 +27,8 @@ public class SignInRouteController extends BaseRouteController {
             // if no employees exist, exception is caught and user is redirected to the employee detail view/document
 
 			// ActiveEmployeeExistsQuery query = new ActiveEmployeeExistsQuery();
+			// boolean check = query.activeEmployeeExists();
+
         }
         catch(Exception e){
             System.out.println("An error ocurred: " + e + "\n");
