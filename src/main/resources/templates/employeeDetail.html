@@ -32,15 +32,25 @@
 		{
 			document.getElementById("saved").innerHTML="Employee Saved";
 		}
-		function eventListener()
+		function listener()
 		{
-			document.getElementById("initiateSave").addEventListener("click", eventListener());
+			document.getElementById("initiateSave").addEventListener("click", listener(), false);
 			document.getElementById("demo").innerHTML;
+			//document.getElementById("initiateSave").removeEventListener("click", listener());
+
+			//var test = document.getElementById("employeeId").length;
+			alert("test");
+			//document.getElementById("employeeManagerId");
+			//document.getElementById("employeeEmployeeId");
+			//document.getElementById("employeeFirstName");
+			//document.getElementById("employeeLastName");
+			//document.getElementById("employeePassword");
+			//document.getElementById("employeeRecheckPassword");
 		}
 	</script> 
 </head>
-
-<body onload=eventListener()>
+ 
+<body onload="listener(); firstName()">
 	<div class="header">
 		<h1 class="primary-message">Employee Detail</h1>
 	</div>
@@ -56,7 +66,7 @@
 					<tr class="hidden">
 						<td>ID:</td>
 						<td>
-							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" onload=firstName() />
+							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" onload="firstName()" />
 						</td>
 					</tr>
 					<tr class="hidden">
@@ -113,22 +123,24 @@
 
 		<!-- TODO: An action element to initiate a save -->
 		<div id="employeeSavedAlertModal" class="modal animate-opacity-show"><br>
-			<button type="button" id="initiateSave" action="PUT /new.html HTTP/1.1" onclick=save()>Save</button>
+			<button type="button" id="initiateSave" action="PUT /new.html HTTP/1.1" onclick="save()" >Save</button>
 			<p id="demo"></p>
 			<div id="saved"></div><br>
 			<div class="modal-content">
 				<div class="container gray-blue">
-<!--				<h1>
+<!--
+				<h1>
 						<span>Employee</span><br />
 						<span>Saved</span>
-					</h1>  -->
+					</h1>
+					  -->
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
-		<img type="button" onclick=signOut() id="signOutImage" src="1xhand.png" alt="Sign Out" class="footer" />   Sign Out
+		<img type="button" onclick="signOut()" id="signOutImage" src="1xhand.png" alt="Sign Out" class="footer" />   Sign Out
 	</div>
 
 </body>
