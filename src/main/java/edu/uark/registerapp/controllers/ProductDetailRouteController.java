@@ -45,7 +45,6 @@ public class ProductDetailRouteController {
 					.setCount(0)
 					.setLookupCode(StringUtils.EMPTY));
 		}
-
 		return modelAndView;
 	}
 
