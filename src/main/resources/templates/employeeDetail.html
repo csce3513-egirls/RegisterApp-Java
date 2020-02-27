@@ -10,6 +10,20 @@
 	<script type="text/javascript" src="/scripts/master.js" defer></script>
 	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script> <!-- -->
 	<script type="text/javascript">
+
+	document.addEventListener("DOMContentLoaded", () => {
+	//const productLookupCodeElement = getProductLookupCodeElement();
+
+	//getProductCountElement().addEventListener("keypress", productCountKeypress);
+	//productLookupCodeElement.addEventListener("keypress", productLookupCodeKeypress);
+
+	getSaveActionElement().addEventListener("click", saveActionClick);
+	//getDeleteActionElement().addEventListener("click", deleteActionClick);
+
+	//if (!productLookupCodeElement.disabled) {
+	//productLookupCodeElement.focus();
+	//productLookupCodeElement.select();
+	});
 		function firstName()
 		{
 			Packages.edu.uark.registerapp.models.repositories.EmployeeRepository;
@@ -28,17 +42,9 @@
 		{
 			alert("signed out");
 		}
-		function save()
+		function saveActionClick(event)
 		{
-			document.getElementById("saved").innerHTML="Employee Saved";
-		}
-		function listener()
-		{
-			document.getElementById("initiateSave").addEventListener("click", listener(), false);
-			document.getElementById("demo").innerHTML;
-			//document.getElementById("initiateSave").removeEventListener("click", listener());
-
-			//var test = document.getElementById("employeeId").length;
+			const saveActionElement = event.target;
 			alert("test");
 			//document.getElementById("employeeManagerId");
 			//document.getElementById("employeeEmployeeId");
@@ -47,10 +53,14 @@
 			//document.getElementById("employeePassword");
 			//document.getElementById("employeeRecheckPassword");
 		}
+		function getSaveActionElement(event)
+		{
+			return document.getElementById("initiateSave");
+		}
 	</script> 
 </head>
  
-<body onload="listener(); firstName()">
+<body onload="saveActionClick(); firstName()">
 	<div class="header">
 		<h1 class="primary-message">Employee Detail</h1>
 	</div>
