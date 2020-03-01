@@ -11,19 +11,11 @@
 	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script> <!-- -->
 	<script type="text/javascript">
 
-	document.addEventListener("DOMContentLoaded", () => {
-	//const productLookupCodeElement = getProductLookupCodeElement();
+		document.addEventListener("DOMContentLoaded", () => {
 
-	//getProductCountElement().addEventListener("keypress", productCountKeypress);
-	//productLookupCodeElement.addEventListener("keypress", productLookupCodeKeypress);
+		getSaveActionElement().addEventListener("click", saveActionClick);
 
-	getSaveActionElement().addEventListener("click", saveActionClick);
-	//getDeleteActionElement().addEventListener("click", deleteActionClick);
-
-	//if (!productLookupCodeElement.disabled) {
-	//productLookupCodeElement.focus();
-	//productLookupCodeElement.select();
-	});
+		});
 		function firstName()
 		{
 			Packages.edu.uark.registerapp.models.repositories.EmployeeRepository;
@@ -38,10 +30,7 @@
 				alert("Check is false");
 			}
 		}
-		function signOut()
-		{
-			alert("signed out");
-		}
+		
 		function saveActionClick(event)
 		{
 			const saveActionElement = event.target;
@@ -76,7 +65,7 @@
 					<tr class="hidden">
 						<td>ID:</td>
 						<td>
-							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" onload="firstName()" />
+							<input id="employeeId" type="hidden" th:value="${!employee.isEmpty} ? ${employee.id} : ''" />
 						</td>
 					</tr>
 					<tr class="hidden">
@@ -88,35 +77,36 @@
 					<tr th:class="${employee.isEmpty} ? hidden : ''">
 						<td class="label">Employee ID:</td>
 						<td>
-							<input id="employeeEmployeeId" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" disabled />
+							<input id="employeeEmployeeId" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" disabled/>
 						</td>
 					</tr>
 					<!-- TODO: Other employee inputs -->
-					<tr th:class="${employee.isEmpty} ? hidden : ''">
+					<tr> 
 						<td class="label">Employee First Name:</td>
 						<td>
 							<input id="employeeFirstName" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"  />
 						</td>
 					</tr>
-					<tr th:class="${employee.isEmpty} ? hidden : ''">
+				
+					<tr> 
 						<td class="label">Employee Last Name:</td>
 						<td>
 							<input id="employeLastName" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"/>
 						</td>
 					</tr>
-					<tr th:class="${employee.isEmpty} ? hidden : ''">
+					<tr>
 						<td class="label">Employee Password:</td>
 						<td>
 							<input id="employeePassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"/>
 						</td>
 					</tr>
-					<tr th:class="${employee.isEmpty} ? hidden : ''">
-						<td class="label">Re-Enter Password:</td>
+					<tr> 
+					<td class="label">Re-Enter Password:</td>
 						<td>
 							<input id="employeeRecheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" />
 						</td>
 					</tr>	
-				   <tr th:class="${employee.isEmpty} ? hidden : ''">
+				   <tr> 
 					  <td>
 					  <label>Employee type: </label>
 					  <select id = "myList">
@@ -126,31 +116,42 @@
 					  </select>
 					  </td>
 					</tr>
-
+				
 				</tbody>
 			</table>
 		</div>
 
-		<!-- TODO: An action element to initiate a save -->
-		<div id="employeeSavedAlertModal" class="modal animate-opacity-show"><br>
-			<button type="button" id="initiateSave" action="PUT /new.html HTTP/1.1" onclick="save()" >Save</button>
-			<p id="demo"></p>
-			<div id="saved"></div><br>
+		<div class="employeeActionsWrapper">
+			<br />
+			<div id="deleteActionContainer" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
+				<br />
+				<br />
+			</div>
+			<button id="saveButton" type="button" class="action">Save</button>
+		</div>
+
+		<div id="employeeSavedAlertModal" class="modal animate-opacity-show">
 			<div class="modal-content">
 				<div class="container gray-blue">
-<!--
-				<h1>
-						<span>Employee</span><br />
+					<h1>
+						<span>Product</span><br />
 						<span>Saved</span>
 					</h1>
-					  -->
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
-		<img type="button" onclick="signOut()" id="signOutImage" src="1xhand.png" alt="Sign Out" class="footer" />   Sign Out
+		<div class="footer">
+			<a href = '/'>
+				<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" />
+			</a>
+		</div>
+<!--		<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
+			<a href='/signIn/'>
+				<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" /> 
+			</a>
+		</div>-->
+
 	</div>
 
 </body>

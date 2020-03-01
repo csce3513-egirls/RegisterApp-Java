@@ -28,11 +28,14 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		@RequestParam final Map<String, String> queryParameters,
 		final HttpServletRequest request
 	) {
-
+		
 		// TODO: Logic to determine if the user associated with the current session
 		//  is able to create an employee
 
-		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
+		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
+								.addObject("employee", new Employee());
+		//return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName());
+		//return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
 
 	@RequestMapping(value = "/{employeeId}", method = RequestMethod.GET)
@@ -53,7 +56,8 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
 		// TODO: Query the employee details using the request route parameter
 		// TODO: Serve up the page
-		return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
+		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
+								.addObject("employee", new Employee());
 	}
 	// Helper methods
 	private boolean activeUserExists() {
