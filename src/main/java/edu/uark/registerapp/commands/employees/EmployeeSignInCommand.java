@@ -1,6 +1,7 @@
 package edu.uark.registerapp.commands.employees;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class EmployeeSignInCommand implements VoidCommandInterface {
     @Transactional
     @Override
@@ -77,16 +79,17 @@ public class EmployeeSignInCommand implements VoidCommandInterface {
         return this;
     }
 
+    public EmployeeSignIn getEmployeeSignIn(){
+        return this.employeeSignIn;
+    }
+
     public EmployeeSignInCommand setEmployeeSignIn(final EmployeeSignIn _employeeSignIn){
         this.employeeSignIn = _employeeSignIn;
         return this;
     }
 
 
-    public EmployeeSignInCommand(final EmployeeSignIn _employeeSignIn, final String _sessionKey){
-
-
-    }
+    
 
     //properties
     private EmployeeSignIn employeeSignIn;

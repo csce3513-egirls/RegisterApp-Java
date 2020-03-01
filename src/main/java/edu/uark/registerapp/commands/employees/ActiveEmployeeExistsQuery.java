@@ -3,6 +3,7 @@ package edu.uark.registerapp.commands.employees;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
 
@@ -11,6 +12,7 @@ import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.models.entities.EmployeeEntity;
 import edu.uark.registerapp.models.repositories.EmployeeRepository;
 
+@Service
 public class ActiveEmployeeExistsQuery implements ResultCommandInterface<Boolean> {
 
     //EmployeeEntity employeeEntity = new EmployeeEntity();
