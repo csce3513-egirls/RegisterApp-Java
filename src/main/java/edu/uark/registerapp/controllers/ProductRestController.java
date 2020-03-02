@@ -72,7 +72,7 @@ public class ProductRestController extends BaseRestController {
 			.setApiProduct(product)
 			.execute();
 		}
-		//ModelAndView modelAndView = new ModelAndView(viewName, modelName, modelObject);
+		//ModelAndView modelAndView = new ModelAndView(, modelName, modelObject);
 		//modelAndView.addObject(attributeValue);
 	}
 
