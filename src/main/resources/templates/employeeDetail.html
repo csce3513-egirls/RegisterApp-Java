@@ -8,48 +8,13 @@
 	<link rel="stylesheet" type="text/css" href="/styles/employeeDetail.css"> 
 
 	<script type="text/javascript" src="/scripts/master.js" defer></script>
-	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script> <!-- -->
+	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script> 
 	<script type="text/javascript">
-
-		document.addEventListener("DOMContentLoaded", () => {
-
-		getSaveActionElement().addEventListener("click", saveActionClick);
-
-		});
-		function firstName()
-		{
-			Packages.edu.uark.registerapp.models.repositories.EmployeeRepository;
-			var id = document.getElementById("employeeId");
-			var check = EmployeeRepository.existsByEmployeeId(id);
-			if (check == true)
-			{
-				alert("Check is true");
-			}
-			else
-			{
-				alert("Check is false");
-			}
-		}
-		
-		function saveActionClick(event)
-		{
-			const saveActionElement = event.target;
-			alert("test");
-			//document.getElementById("employeeManagerId");
-			//document.getElementById("employeeEmployeeId");
-			//document.getElementById("employeeFirstName");
-			//document.getElementById("employeeLastName");
-			//document.getElementById("employeePassword");
-			//document.getElementById("employeeRecheckPassword");
-		}
-		function getSaveActionElement(event)
-		{
-			return document.getElementById("initiateSave");
-		}
+	Packages.edu.uark.registerapp.models.repositories.EmployeeRepository;
 	</script> 
 </head>
  
-<body onload="saveActionClick(); firstName()">
+<body> 
 	<div class="header">
 		<h1 class="primary-message">Employee Detail</h1>
 	</div>
@@ -103,13 +68,13 @@
 					<tr> 
 					<td class="label">Re-Enter Password:</td>
 						<td>
-							<input id="employeeRecheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" />
+							<input id="employeeReCheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" />
 						</td>
 					</tr>	
 				   <tr> 
 					  <td>
 					  <label>Employee type: </label>
-					  <select id = "myList">
+					  <select id = "employeeType">
     					    <option value = "1">Cashier</option>
 							<option value = "2">Shift Manager</option>
 							<option value = "3">General Manager</option>
@@ -134,7 +99,7 @@
 			<div class="modal-content">
 				<div class="container gray-blue">
 					<h1>
-						<span>Product</span><br />
+						<span>Employee</span><br />
 						<span>Saved</span>
 					</h1>
 				</div>
@@ -146,12 +111,7 @@
 				<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" />
 			</a>
 		</div>
-<!--		<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
-			<a href='/signIn/'>
-				<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" /> 
-			</a>
-		</div>-->
-
+		
 	</div>
 
 </body>

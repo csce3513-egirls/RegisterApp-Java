@@ -34,8 +34,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
 		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
 								.addObject("employee", new Employee());
-		//return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName());
-		//return new ModelAndView(ViewModelNames.EMPLOYEE_TYPES.getValue());
 	}
 
 	@RequestMapping(value = "/{employeeId}", method = RequestMethod.GET)
