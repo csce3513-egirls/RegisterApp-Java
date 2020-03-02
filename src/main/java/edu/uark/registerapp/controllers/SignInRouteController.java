@@ -14,7 +14,7 @@ import java.util.Map;
 
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
-import edu.uark.registerapp.models.api.Employee;
+//import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
@@ -33,10 +33,9 @@ public class SignInRouteController extends BaseRouteController {
             return new ModelAndView(
 			REDIRECT_PREPEND.concat(
 			ViewNames.EMPLOYEE_DETAIL.getRoute()))
-												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage())
-												.addObject("employee", new Employee());
+												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage());
         }      
-        return new ModelAndView(ViewNames.SIGN_IN.getRoute()).addObject("employeeSignIn", new EmployeeSignIn());
+        return new ModelAndView(ViewNames.SIGN_IN.getRoute());
     }
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -60,7 +59,6 @@ public class SignInRouteController extends BaseRouteController {
 		catch(Exception e){
 			System.out.println("An error ocurred: " + e + "\n");
 			return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute()))
-									.addObject("employeeSignIn", new EmployeeSignIn())
 									.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage());
 		}
 
