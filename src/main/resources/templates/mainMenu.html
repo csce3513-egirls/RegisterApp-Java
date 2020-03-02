@@ -1,0 +1,99 @@
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Register - Main Menu</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+	<link rel="stylesheet" type="text/css" href="/styles/master.css">
+
+	<script type="text/javascript" src="/scripts/master.js" defer></script>
+	<script type="text/javascript" src="/scripts/mainMenu.js" defer></script>
+</head>
+
+<body>
+
+	<div class="header">
+		<h1 class="primary-message">Main Menu</h1>
+	</div>
+		
+	<div id="main" class="main">
+		<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
+			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
+		</div>
+
+		<!-- TODO: Add the various action button elements  style="visibility:hidden"-->
+		<button type="button" onclick="startTransaction()" id="startTransaction"> Start Transaction </button>
+		<div id="transaction"></div> 
+		
+		<a href="/productDetail/" class="button" onclick="viewProducts()" id="viewProducts">View Products</a>
+		
+		<button type="button" onclick="createEmployee()" id="createEmployee"> Create Employee </button>
+		<div id="employee"></div>
+
+		<button type="button" onclick="salesReport()" id="salesReport"> Sales Report </button> 
+		<div id="sales"></div> 
+		
+		<button type="button" onclick="cashierReport()" id="cashierReport"> Cashier Report </button> 
+		<div id="cashier"></div>
+
+	</div>
+
+	<div class="hidden">
+		<input type="checkbox" id="isRefreshed" class="hidden">
+		<script type="text/javascript">
+			window.onunload = function() {
+				const isRefreshedElement = document.getElementById("isRefreshed");
+
+				if(!isRefreshedElement.checked) {
+					isRefreshedElement.checked = true;
+				} else {
+					isRefreshedElement.checked = false;
+					location.reload();
+				}
+			}
+		</script>
+	</div>
+
+	<div class="footer">
+		<img id="signOutImage" onclick="signOut()" src="1xhand.png" alt="Sign Out" class="footer" />  Sign Out
+	</div>
+		
+	<script>
+		Packages.edu.uark.registerapp.models.enums.EmployeeClassification;
+
+		function startTransaction() {
+			document.getElementById("transaction").innerHTML = "Functionality has not yet been implemented."; 
+		}
+		
+		function viewProducts() {
+			
+		}
+
+		function createEmployee() {
+			var classification = EmployeeClassification.getClassification;
+			if(classification == "Shift Manager" || classification == "General Manager") {
+				document.getElementById("createEmployee").style.visibility = 'visible';
+			}
+		}
+
+		function salesReport() {
+			document.getElementById("sales").innerHTML = "Functionality has not yet been implemented."; 
+			if(classification == "Shift Manager" || classification == "General Manager") {
+				document.getElementById("saleReport").style.visibility = 'visible';
+			}
+		}
+
+		function cashierReport() {
+			document.getElementById("cashier").innerHTML = "Functionality has not yet been implemented."; 
+			if(classification == "Shift Manager" || classification == "General Manager") {
+				document.getElementById("cashierReport").style.visibility = 'visible';
+			}
+		}
+
+		function signOut() {
+			alert("sign out");
+		}
+	</script>
+</body>
+
+</html>
