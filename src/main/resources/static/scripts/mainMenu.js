@@ -1,34 +1,59 @@
-Packages.edu.uark.registerapp.models.enums.EmployeeClassification;
+document.addEventListener("DOMContentLoaded", () => {
+	
+    getStartTransactionActionElement().addEventListener("click", StartTransactionActionClick);
+    getViewProductActionElement().addEventListener("click", viewProductActionClick);
+    getCreateEmployeeActionElement().addEventListener("click", createEmployeeActionClick);
+    getSalesReportActionElement().addEventListener("click", salesReportactionClick);
+    getCashierReportActionElement().addEventListener("click", cashierReportActionClick);
+    getSignOutActionElement().addEventListener("click", signOutActionClickHandler);
 
-function startTransaction() {
-	document.getElementById("transaction").innerHTML = "Functionality has not yet been implemented."; 
-}
-		
-function viewProducts() {
-			
-}
+});
 
-function createEmployee() {
-	var classification = EmployeeClassification.getClassification;
-	if(classification == "Shift Manager" || classification == "General Manager") {
-		document.getElementById("createEmployee").style.visibility = 'visible';
-	}
-}
-
-function salesReport() {
-	document.getElementById("sales").innerHTML = "Functionality has not yet been implemented."; 
-	if(classification == "Shift Manager" || classification == "General Manager") {
-		document.getElementById("saleReport").style.visibility = 'visible';
-    }
+function startTransactionActionClick(event) {
+    const startTransactionActionElement = event.target;
+    displayError('Functionality has not yet been implemented.');
 }
 
-function cashierReport() {
-    document.getElementById("cashier").innerHTML = "Functionality has not yet been implemented."; 
-	if(classification == "Shift Manager" || classification == "General Manager") {
-		document.getElementById("cashierReport").style.visibility = 'visible';
-	}
+function viewProductActionClick(event) {
+    const viewProductActionElement = event.target;
+    window.location.replace("/productListing");
 }
 
-function signOut() {
-	alert("sign out");
+function createEmployeeActionClick(event) {
+    const createEmployeeActionElement = event.target;
+    window.location.replace("/employeeDetail");
+}
+
+function salesReportActionClick(event) {
+    const salesReportActionElement = event.target;
+    displayError('Functionality has not yet been implemented.');
+}
+ 
+function cashierReportActionClick(event) {
+    const cashierReportActionElement = event.target;
+    displayError('Functionality has not yet been implemented.');
+}
+
+function getstartTransactionActionElement() {
+    return document.getElementById("startTransactionButton");
+}
+
+function getViewProductsActionElement() {
+    return document.getElementById("viewProductsButton");
+}
+
+function getCreateEmployeeActionElement() {
+    return document.getElementById("createEmployeeButton");
+}
+
+function getSalesReportActionElement() {
+    return document.getElementById("salesReportButton");
+}
+
+function getCashierReportActionElement() {
+    return document.getElementById("cashierReportButton");
+}
+
+function getSignOutActionElement() {
+    return document.getElementById("signOutImage");
 }
