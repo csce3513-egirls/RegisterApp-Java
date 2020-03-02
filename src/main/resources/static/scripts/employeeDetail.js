@@ -5,16 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	const employeeEmployeeIdElement = getEmployeeEmployeeIdElement();
 	getSaveActionElement().addEventListener("click", saveActionClick);
 
-	if (!employeeEmployeeIdElement.disabled) {
-		employeeEmployeeIdElement.focus();
-		employeeEmployeeIdElement.select();
+	if (!employeeIdElement.disabled) {
+		employeeIdElement.focus();
+		employeeIdElement.select();
 	}
 });
 
 // Save
 function saveActionClick(event) {
 	// TODO: Actually save the employee via an AJAX call
-	displayEmployeeSavedAlertModal();
+	//displayEmployeeSavedAlertModal();
 
 	if (!validateSave()) {
 		return;
@@ -23,14 +23,14 @@ function saveActionClick(event) {
 	const saveActionElement = event.target;
 	saveActionElement.disabled = true;
 
-	const employeeEmployeeId = getEmployeeId();
-	const employeeEmployeeIdIsDefined = ((employeeEmployeeId != null) && (employeeEmployeeId.trim() !== ""));
+	const employeeId = getEmployeeId();
+	const employeeIdIsDefined = ((employeeId != null) && (employeeId.trim() !== ""));
 	const saveActionUrl = ("/api/employee/"
-		+ (employeeEmployeeIdIsDefined ? employeeEmployeeId : ""));
+		+ (employeeIdIsDefined ? employeeId : ""));
 	const saveEmployeeRequest = {
-		id: employeeEmployeeId,
+		id: employeeId,
 		managerId: getEmployeeManagerId(),
-		employeeId: getEmployeeId(),
+		employeeId: getEmployeeEmployeeId(),
 		firstName: getEmployeeFirstName(),
 		lastName: getEmployeeLastName(),
 		password : getEmployeePassword(),
@@ -86,7 +86,6 @@ function hideEmployeeSavedAlertModal() {
 	getSavedAlertModalElement().style.display = "none";
 }
 
-
 // Save
 function validateSave() {
 	const firstName = getEmployeeFirstName();
@@ -96,13 +95,13 @@ function validateSave() {
 	}
 
 	const lastName = getEmployeeLastName();
-	if ((lastName == null) || isNaN(lastName)) {
+	if ((lastName == null) || (lastName.trim() === "")) {
 		displayError("Please provide a valid last name.");
 		return false;
 	}
 
 	const password = getEmployeePassword();
-	if ((password == null) || isNaN(password)) {
+	if ((password == null) || (password.trim() === "")) {
 		displayError("Please provide a valid password.");
 		return false;
 	} else if (password != getEmployeeReCheckPassword()) {
@@ -111,7 +110,7 @@ function validateSave() {
 	}
 
 	const type = getEmployeeType();
-	if ((type == null) || isNaN(type)) {
+	if ((type == null) || (type.trim() === "")) {
 		displayError("Please select a valid employee type.");
 		return false;
 	}
@@ -119,7 +118,6 @@ function validateSave() {
 	return true;
 }
 // End save
-
 
 //Getters and setters
 function getSaveActionElement() {

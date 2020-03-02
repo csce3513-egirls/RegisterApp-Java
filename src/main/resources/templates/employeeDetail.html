@@ -49,32 +49,32 @@
 					<tr> 
 						<td class="label">Employee First Name:</td>
 						<td>
-							<input id="employeeFirstName" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"  />
+							<input id="employeeFirstName" type="text" th:value="${!employee.isEmpty} ? ${employee.firstName} : ''" class="update"  />
 						</td>
 					</tr>
 				
 					<tr> 
 						<td class="label">Employee Last Name:</td>
 						<td>
-							<input id="employeLastName" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"/>
+							<input id="employeLastName" type="text" th:value="${!employee.isEmpty} ? ${employee.lastName} : ''" class="update"/>
 						</td>
 					</tr>
 					<tr>
 						<td class="label">Employee Password:</td>
 						<td>
-							<input id="employeePassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update"/>
+							<input id="employeePassword" type="text" th:value="${!employee.isEmpty} ? ${employee.password} : ''" class="update"/>
 						</td>
 					</tr>
 					<tr> 
 					<td class="label">Re-Enter Password:</td>
 						<td>
-							<input id="employeeReCheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" />
+							<input id="employeeReCheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.reCheckPassword} : ''" class="update" />
 						</td>
 					</tr>	
 				   <tr> 
 					  <td>
 					  <label>Employee type: </label>
-					  <select id = "employeeType">
+					  <select id = "employeeType" th:value="${!employee.isEmpty} ? ${employee.type} : ''" class="update">
     					    <option value = "1">Cashier</option>
 							<option value = "2">Shift Manager</option>
 							<option value = "3">General Manager</option>
@@ -88,7 +88,7 @@
 
 		<div class="employeeActionsWrapper">
 			<br />
-			<div id="deleteActionContainer" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
+			<div id="deleteActionContainer" th:class="${employee.isEmpty} ? hidden : ''">
 				<br />
 				<br />
 			</div>
@@ -105,13 +105,13 @@
 				</div>
 			</div>
 		</div>
-
+	
 		<div class="footer">
 			<a href = '/'>
 				<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" />
 			</a>
 		</div>
-		
+
 	</div>
 
 </body>

@@ -56,6 +56,29 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Serve up the page
 		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
 								.addObject("employee", new Employee());
+
+
+/////////new from product detail router////////////////////////////////////////////////////////////////////////////////////
+		/*final ModelAndView modelAndView =
+			new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName());
+					
+		try {
+			modelAndView.addObject(
+				ViewModelNames.EMPLOYEE.getValue(),
+				this.employeeQuery.setProductId(employeeId).execute());
+			} catch (final Exception e) {
+			modelAndView.addObject(
+				ViewModelNames.ERROR_MESSAGE.getValue(),
+					e.getMessage());
+					modelAndView.addObject(
+				ViewModelNames.PRODUCT.getValue(),
+					(new Employee())
+					.setEmployeeId(0)
+					.setManagerId(StringUtils.EMPTY)
+					.setEmployeeEmployeeId(StringUtils.EMPTY));
+			}
+					
+			return modelAndView;	*/							
 	}
 	// Helper methods
 	private boolean activeUserExists() {
