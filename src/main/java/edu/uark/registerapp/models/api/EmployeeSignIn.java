@@ -1,34 +1,37 @@
 package edu.uark.registerapp.models.api;
 
-public class EmployeeSignIn extends ApiResponse{
-    private String employeeId;
-    private String password;
+import org.apache.commons.lang3.StringUtils;
 
-    public String getEmployeeID(){
-        return this.employeeId;
+public class EmployeeSignIn extends ApiResponse{
+    private String employee_id;
+    public String getEmployee_id(){
+        return this.employee_id;
     }
 
+    public EmployeeSignIn setEmployee_id(String employee_id){
+        this.employee_id = employee_id;
+        return this;
+    }
+
+    private String password;
     public String getPassword(){
         return this.password;
     }
 
-    public void setEmployeeID(String new_ID){
-        this.employeeId = new_ID;
-    }
-
-    public void setPassword(String new_pass){
-        this.password = new_pass;
+    public EmployeeSignIn setPassword(String password){
+        this.password = password;
+        return this;
     }
 
     public EmployeeSignIn(){
         super();
-        this.employeeId = "";
-        this.password = "";
+        this.employee_id = StringUtils.EMPTY;
+        this.password = StringUtils.EMPTY;
     }
 
-    public EmployeeSignIn(final String id, final String password){
+    public EmployeeSignIn(final String employee_id, final String password){
         super(false);
-        this.employeeId = id;
+        this.employee_id = employee_id;
         this.password = password;
     }
 }

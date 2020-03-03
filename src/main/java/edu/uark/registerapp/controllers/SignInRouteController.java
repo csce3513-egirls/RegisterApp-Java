@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Map;
 
 import edu.uark.registerapp.controllers.enums.ViewNames;
+import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
@@ -23,17 +24,19 @@ import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
 public class SignInRouteController extends BaseRouteController {
 	// TODO: Route for initial page load DONE
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView requestDocument(@RequestParam Map<String,String> allParams) {
+	public ModelAndView requestDocument(@RequestParam final Map<String,String> allParams) {
         try{
 			query.execute();
         }
-        catch(Exception e){
+        catch(final Exception e){
             System.out.println("An error ocurred: " + e + "\n");
             return new ModelAndView(
 			REDIRECT_PREPEND.concat(
-			ViewNames.EMPLOYEE_DETAIL.getRoute())).addObject("employee", new Employee());
+			ViewNames.EMPLOYEE_DETAIL.getViewName()))
+												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage())
+												.addObject("employee", new Employee());
         }      
-        return new ModelAndView(ViewNames.SIGN_IN.getRoute()).addObject("employeeSignIn", new EmployeeSignIn());
+        return new ModelAndView(ViewNames.SIGN_IN.getViewName());
     }
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -54,15 +57,16 @@ public class SignInRouteController extends BaseRouteController {
 			this.command.execute();
 		}
 
-		catch(Exception e){
-			System.out.println("An error ocurred: The sign in was not successful\n");
-			return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute()))
-									.addObject("employeeSignIn", new EmployeeSignIn());
+		catch(final Exception e){
+			System.out.println("An error ocurred: " + e + "\n");
+			return new ModelAndView(ViewNames.SIGN_IN.getViewName())
+									.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage());
 		}
 
 		return new ModelAndView(
 			REDIRECT_PREPEND.concat(
-				ViewNames.MAIN_MENU.getRoute()));
+				ViewNames.MAIN_MENU.getViewName()))
+									.addObject(ViewModelNames.IS_ELEVATED_USER.getValue(),true);
 	}
 
 	@Autowired
