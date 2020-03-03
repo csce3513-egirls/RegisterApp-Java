@@ -6,8 +6,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils; /////////???????/
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.commons.lang3.StringUtils; 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.uark.registerapp.commands.exceptions.NotFoundException;
-import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.entities.ActiveUserEntity;
@@ -59,38 +56,12 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Serve up the page
 		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
 								.addObject("employee", new Employee());
-
-
-/////////new from product detail router////////////////////////////////////////////////////////////////////////////////////
-		/*final ModelAndView modelAndView =
-			new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName());
-					
-		try {
-			modelAndView.addObject(
-				ViewModelNames.EMPLOYEE.getValue(),
-				this.employeeQuery.setProductId(employeeId).execute());
-			} catch (final Exception e) {
-			modelAndView.addObject(
-				ViewModelNames.ERROR_MESSAGE.getValue(),
-					e.getMessage());
-					modelAndView.addObject(
-				ViewModelNames.PRODUCT.getValue(),
-					(new Employee())
-					.setEmployeeId(0)
-					.setManagerId(StringUtils.EMPTY)
-					.setEmployeeEmployeeId(StringUtils.EMPTY));
-			}
-					
-			return modelAndView;	*/							
+								
 	}
 	// Helper methods
 	private boolean activeUserExists() {
 		// TODO: Helper method to determine if any active users Exist
 		return true;
 	}
-////////////
-	// Properties
-	@Autowired
-	private EmployeeQuery employeeQuery;
 
 }
