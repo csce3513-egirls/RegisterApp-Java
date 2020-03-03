@@ -51,8 +51,6 @@ public class SignInRouteController extends BaseRouteController {
 		try{
 			HttpSession session = request.getSession();
 			String session_id = session.getId();
-			System.out.println("Employee id: " + employee.getEmployee_id());
-			System.out.println("password: " + employee.getPassword());
 			this.command.setEmployeeSignIn(employee);
 			this.command.setSessionKey(session_id);
 			this.command.execute();
