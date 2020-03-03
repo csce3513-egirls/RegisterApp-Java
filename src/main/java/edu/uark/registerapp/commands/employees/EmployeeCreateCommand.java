@@ -13,10 +13,12 @@ import edu.uark.registerapp.commands.exceptions.ConflictException;
 import edu.uark.registerapp.commands.exceptions.UnprocessableEntityException;
 import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.entities.EmployeeEntity;
+import edu.uark.registerapp.models.enums.EmployeeClassification;
 import edu.uark.registerapp.models.repositories.EmployeeRepository;
 
 @Service
 public class EmployeeCreateCommand implements ResultCommandInterface<Employee> {
+	boolean isInitialEmployee = false;
 	@Override
 	public Employee execute() {
 		this.validateProperties();
@@ -51,11 +53,16 @@ public class EmployeeCreateCommand implements ResultCommandInterface<Employee> {
 
 		if (queriedEmployeeEntity.isPresent()) {
 			// id already defined for another employee.
+			isInitialEmployee = true;
 			throw new ConflictException("employeeId");
 		}
 
 		// No ENTITY object was returned from the database, thus the API object's
 		// id must be unique.
+		if (isInitialEmployee)
+		{
+			apiEmployee.setClassification(EmployeeClassification.GENERAL_MANAGER.getClassification());
+		}
 
 		// Write, via an INSERT, the new record to the database.
 		return this.employeeRepository.save(
