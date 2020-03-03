@@ -14,7 +14,7 @@ import java.util.Map;
 
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
-//import edu.uark.registerapp.models.api.Employee;
+import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
@@ -33,7 +33,8 @@ public class SignInRouteController extends BaseRouteController {
             return new ModelAndView(
 			REDIRECT_PREPEND.concat(
 			ViewNames.EMPLOYEE_DETAIL.getViewName()))
-												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage());
+												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage())
+												.addObject("employee", new Employee());
         }      
         return new ModelAndView(ViewNames.SIGN_IN.getViewName());
     }
