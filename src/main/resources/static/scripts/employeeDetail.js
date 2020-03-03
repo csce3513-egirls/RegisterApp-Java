@@ -2,7 +2,7 @@ let hideEmployeeSavedAlertTimer = undefined;
 
 document.addEventListener("DOMContentLoaded", () => {
 	// TODO: Things that need doing when the view is loaded
-	const employeeEmployeeIdElement = getEmployeeEmployeeIdElement();
+	const employeeIdElement = getEmployeeIdElement();
 	getSaveActionElement().addEventListener("click", saveActionClick);
 
 	if (!employeeIdElement.disabled) {
@@ -38,7 +38,7 @@ function saveActionClick(event) {
 		type: getEmployeeType()
 	};
 
-	if (employeeEmployeeIdIsDefined) {
+	if (employeeIdIsDefined) {
 		ajaxPut(saveActionUrl, saveEmployeeRequest, (callbackResponse) => {
 			saveActionElement.disabled = false;
 

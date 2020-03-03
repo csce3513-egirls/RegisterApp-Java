@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils; /////////???????/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,8 +33,10 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Logic to determine if the user associated with the current session
 		//  is able to create an employee
 
+		
 		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
-								.addObject("employee", new Employee());
+								.addObject("employee", (new Employee()).setFirstName(StringUtils.EMPTY).setLastName(StringUtils.EMPTY)); //
+									//"employee", new Employee());
 	}
 
 	@RequestMapping(value = "/{employeeId}", method = RequestMethod.GET)
@@ -85,4 +88,9 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Helper method to determine if any active users Exist
 		return true;
 	}
+////////////
+	// Properties
+	@Autowired
+	private EmployeeQuery employeeQuery;
+
 }
