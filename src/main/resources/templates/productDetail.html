@@ -33,14 +33,18 @@
 					</tr>
 					<tr>
 						<td class="label">Lookup Code:</td>
-						<td>
-							<input id="productLookupCode" type="text" th:value="${!product.isEmpty} ? ${product.lookupCode} : ''" class="update" />
+						<!--Disable textbox if !isElevatedUser-->
+						<td th:switch="${isElevatedUser}">
+							<input th:case="${true}" id="productLookupCode" type="text" th:value="${!product.isEmpty} ? ${product.lookupCode} : ''" class="update" />
+							<input th:case="*" id="productLookupCodeDisabled" type="text" th:value="${!product.isEmpty} ? ${product.lookupCode} : ''" class="update" disabled />							
 						</td>
 					</tr>
 					<tr>
 						<td class="label">Count:</td>
-						<td>
-							<input id="productCount" type="number" th:value="${!product.isEmpty} ? ${product.count} : ''" class="update" />
+						<!--Disable textbox if !isElevatedUser-->
+						<td th:switch="${isElevatedUser}">
+							<input th:case="${true}" id="productCount" type="number" th:value="${!product.isEmpty} ? ${product.count} : ''" class="update" />
+							<input th:case="*" id="productCountDisabled" type="number" th:value="${!product.isEmpty} ? ${product.count} : ''" class="update" disabled />
 						</td>
 					</tr>
 				</tbody>
@@ -49,12 +53,40 @@
 
 		<div class="productActionsWrapper">
 			<br />
-			<div id="deleteActionContainer" th:class="${product.isEmpty} ? hidden : ''">
+			<!--Added thymeleaf below-->
+			<!--<div id="deleteActionContainer" th:class="${product.isEmpty} ? hidden : ''">
+				<button id="deleteButton" type="button" class="action">Delete</button>
+				<a href="javasript:displayError('Error! User is not elevated user.')" id="deleteButton" class="button" >Delete</a>
+				<br />
+				<br />
+			</div>
+			<button id="saveButton" type="button" class="action">Save</button>-->
+			<!--if-->
+			<div th:switch="${!isElevatedUser}">
+				<div th:case="${true}">
+					<div id="deleteActionContainer" th:class="${product.isEmpty} ? hidden : ''">
+						<button id="deleteButton" type="button" class="action">Delete</button>
+						<br />
+						<br />
+						<br />
+					</div>
+					<button id="saveButton" type="button" class="action">Save</button>	
+				</div>	
+				<!--else-->
+				<div th:case="*">
+					<a href="/productListing/" id="deleteButton" class="button">Delete</a>
+					<br/>
+					<br/>
+					<br/>
+					<a href="/productListing/" id="saveButton" class="button">Save</a>
+				</div>
+			</div>
+			<!--<div id="deleteActionContainer" th:class="${!isElevatedUser} or ${product.isEmpty} ? hidden : ''">
 				<button id="deleteButton" type="button" class="action">Delete</button>
 				<br />
 				<br />
 			</div>
-			<button id="saveButton" type="button" class="action">Save</button>
+			<button id="saveButton" type="button" class="action">Save</button>-->
 		</div>
 
 		<div id="productSavedAlertModal" class="modal animate-opacity-show">
@@ -70,5 +102,4 @@
 	</div>
 		
 </body>
-
 </html>
