@@ -18,8 +18,19 @@
 				return false;
 			}
 			else{
-				return true;
+				var check = isNumber(emp_id);
+				if (check == false){
+					alert("Please enter a number for the Employee ID.");
+					return false;
+				}
+				else{
+					return true;
+				}
 			}
+		}
+
+		function isNumber(number){
+			return !isNaN(number);
 		}
 
 	</script>
@@ -36,13 +47,13 @@
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
 		</div>
 
-		<form method="POST" name="login" onsubmit="return validateForm()" action="/" class="inputContent" th:object="${EmployeeSignIn}">
+		<form method="POST" name="login" onsubmit="return validateForm()" action = "#" th:action="@{/}" class="inputContent" th:object="${EmployeeSignIn}">
 			<!-- TODO: Form input elements DONE-->
 			<fieldset>
                 <label for="employee_id">Employee ID:</label><br>
-                <input type="number" id="employee_id" name="employee_id" th:field="*{employeeId}"><br>
+                <input type="text" id="employee_id" name="employee_id" th:value="${employee_id}"><br>
                 <label for="password">Password:</label><br>
-                <input type="password" id="password" name="password" th:field="*{password}"><br>
+                <input type="password" id="password" name="password" th:value="${password}"><br>
                 <input type="submit" value="Sign in"><br>
             </fieldset>
 		</form>

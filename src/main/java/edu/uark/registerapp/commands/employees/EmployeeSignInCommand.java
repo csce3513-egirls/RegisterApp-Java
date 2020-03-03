@@ -28,7 +28,7 @@ public class EmployeeSignInCommand implements VoidCommandInterface {
     public void execute() {
         this.validateProperties();
 
-        final Optional<EmployeeEntity> employeeEntity = this.employeeRepository.findByEmployeeId(Integer.parseInt(this.employeeSignIn.getEmployeeID()));
+        final Optional<EmployeeEntity> employeeEntity = this.employeeRepository.findByEmployeeId(Integer.parseInt(this.employeeSignIn.getEmployee_id()));
        
         if(!employeeEntity.isPresent()){
             throw new NotFoundException("Employee");
@@ -61,11 +61,11 @@ public class EmployeeSignInCommand implements VoidCommandInterface {
 
 
     private void validateProperties(){
-        if(StringUtils.isBlank(this.employeeSignIn.getEmployeeID())){
+        if(StringUtils.isBlank(this.employeeSignIn.getEmployee_id())){
             throw new UnprocessableEntityException("EmployeeSignIn: blank name");
         }
 
-        if(!this.employeeSignIn.getEmployeeID().matches("[0-9]+")){
+        if(!this.employeeSignIn.getEmployee_id().matches("[0-9]+")){
             throw new UnprocessableEntityException("EmployeeSignIn: non-numeric employee id");
         }
 

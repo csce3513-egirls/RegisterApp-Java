@@ -24,18 +24,18 @@ import edu.uark.registerapp.commands.employees.EmployeeSignInCommand;
 public class SignInRouteController extends BaseRouteController {
 	// TODO: Route for initial page load DONE
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView requestDocument(@RequestParam Map<String,String> allParams) {
+	public ModelAndView requestDocument(@RequestParam final Map<String,String> allParams) {
         try{
 			query.execute();
         }
-        catch(Exception e){
+        catch(final Exception e){
             System.out.println("An error ocurred: " + e + "\n");
             return new ModelAndView(
 			REDIRECT_PREPEND.concat(
-			ViewNames.EMPLOYEE_DETAIL.getRoute()))
+			ViewNames.EMPLOYEE_DETAIL.getViewName()))
 												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage());
         }      
-        return new ModelAndView(ViewNames.SIGN_IN.getRoute());
+        return new ModelAndView(ViewNames.SIGN_IN.getViewName());
     }
 
 	@RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -51,20 +51,22 @@ public class SignInRouteController extends BaseRouteController {
 		try{
 			HttpSession session = request.getSession();
 			String session_id = session.getId();
+			System.out.println("Employee id: " + employee.getEmployee_id());
+			System.out.println("password: " + employee.getPassword());
 			this.command.setEmployeeSignIn(employee);
 			this.command.setSessionKey(session_id);
 			this.command.execute();
 		}
 
-		catch(Exception e){
+		catch(final Exception e){
 			System.out.println("An error ocurred: " + e + "\n");
-			return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute()))
+			return new ModelAndView(ViewNames.SIGN_IN.getViewName())
 									.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage());
 		}
 
 		return new ModelAndView(
 			REDIRECT_PREPEND.concat(
-				ViewNames.MAIN_MENU.getRoute()))
+				ViewNames.MAIN_MENU.getViewName()))
 									.addObject(ViewModelNames.IS_ELEVATED_USER.getValue(),true);
 	}
 
