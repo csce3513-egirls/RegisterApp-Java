@@ -34,7 +34,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		final HttpServletRequest request
 	) {
 		
-		// TODO: Logic to determine if the user associated with the current session
+		
 		//  is able to create an employee
 
         final Optional<ActiveUserEntity> activeUserEntity =
