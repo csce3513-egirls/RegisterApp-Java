@@ -13,7 +13,7 @@ public class EmployeeHelper {
 				"0")
 			: employeeIdAsString);
 	}
-
+    
 	public static byte[] hashPassword(final String password) {
 		// TODO: Hash the password using a MessageDigest. An example can be found at http://tutorials.jenkov.com/java-cryptography/messagedigest.html
 		return new byte[0];

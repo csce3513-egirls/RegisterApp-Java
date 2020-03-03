@@ -5,17 +5,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="/styles/master.css">
+	<link rel="stylesheet" type="text/css" href="/styles/employeeDetail.css"> 
 
 	<script type="text/javascript" src="/scripts/master.js" defer></script>
-	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script>
+	<script type="text/javascript" src="/scripts/employeeDetail.js" defer></script> 
+	<script type="text/javascript">
+	Packages.edu.uark.registerapp.models.repositories.EmployeeRepository;
+	</script> 
 </head>
-
-<body>
-
+ 
+<body> 
 	<div class="header">
 		<h1 class="primary-message">Employee Detail</h1>
 	</div>
-		
+
 	<div id="main" class="main">
 		<div id="error" th:class="${#strings.isEmpty(errorMessage)} ? hidden : ''">
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
@@ -39,15 +42,58 @@
 					<tr th:class="${employee.isEmpty} ? hidden : ''">
 						<td class="label">Employee ID:</td>
 						<td>
-							<input id="employeeEmployeeId" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" disabled />
+							<input id="employeeEmployeeId" type="text" th:value="${!employee.isEmpty} ? ${employee.employeeId} : ''" class="update" disabled/>
 						</td>
 					</tr>
 					<!-- TODO: Other employee inputs -->
+					<tr> 
+						<td class="label">Employee First Name:</td>
+						<td>
+							<input id="employeeFirstName" type="text" th:value="${!employee.isEmpty} ? ${employee.firstName} : ''" class="update"  />
+						</td>
+					</tr>
+				
+					<tr> 
+						<td class="label">Employee Last Name:</td>
+						<td>
+							<input id="employeLastName" type="text" th:value="${!employee.isEmpty} ? ${employee.lastName} : ''" class="update"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="label">Employee Password:</td>
+						<td>
+							<input id="employeePassword" type="text" th:value="${!employee.isEmpty} ? ${employee.password} : ''" class="update"/>
+						</td>
+					</tr>
+					<tr> 
+					<td class="label">Re-Enter Password:</td>
+						<td>
+							<input id="employeeReCheckPassword" type="text" th:value="${!employee.isEmpty} ? ${employee.reCheckPassword} : ''" class="update" />
+						</td>
+					</tr>	
+				   <tr> 
+					  <td>
+					  <label>Employee type: </label>
+					  <select id = "employeeType" th:value="${!employee.isEmpty} ? ${employee.type} : ''" class="update">
+    					    <option value = "1">Cashier</option>
+							<option value = "2">Shift Manager</option>
+							<option value = "3">General Manager</option>
+					  </select>
+					  </td>
+					</tr>
+				
 				</tbody>
 			</table>
 		</div>
 
-		<!-- TODO: An action element to initiate a save -->
+		<div class="employeeActionsWrapper">
+			<br />
+			<div id="deleteActionContainer" th:class="${employee.isEmpty} ? hidden : ''">
+				<br />
+				<br />
+			</div>
+			<button id="saveButton" type="button" class="action">Save</button>
+		</div>
 
 		<div id="employeeSavedAlertModal" class="modal animate-opacity-show">
 			<div class="modal-content">
@@ -59,10 +105,13 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	
+		<div class="footer">
+			<a href = '/'>
+				<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" />
+			</a>
+		</div>
 
-	<div class="footer" th:classappend="${employee.isInitialEmployee} ? hidden : ''">
-		<img id="signOutImage" src="/images/Sign-Out.png" alt="Sign Out" class="footer" />
 	</div>
 
 </body>
