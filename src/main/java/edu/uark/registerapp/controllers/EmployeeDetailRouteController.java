@@ -53,7 +53,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
 		// TODO: Query the employee details using the request route parameter
 		// TODO: Serve up the page
-		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName());
+		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName()).addObject("employee", new Employee());
 	}
 	//Here is the first task to complete in employee detail
 	// Helper methods

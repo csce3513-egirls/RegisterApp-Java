@@ -22,7 +22,8 @@
 		</div>
 
 		<div class="productsWrapper">
-			<div>
+			<!--Added thymeleaf-->
+			<div id="productDetailActionContainer" th:class="${!isElevatedUser} ? hidden : ''">
 				<a href="/productDetail/" class="button">Create New</a>
 			</div>
 

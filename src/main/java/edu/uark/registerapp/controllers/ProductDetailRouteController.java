@@ -14,23 +14,27 @@ import edu.uark.registerapp.commands.products.ProductQuery;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Product;
+import edu.uark.registerapp.models.entities.ActiveUserEntity;
 
 @Controller
 @RequestMapping(value = "/productDetail")
 public class ProductDetailRouteController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView start() {
-		return (new ModelAndView(ViewNames.PRODUCT_DETAIL.getViewName()))
-			.addObject(
+		// added addObject IS_ELEVATED_USER
+		return (new ModelAndView(ViewNames.PRODUCT_DETAIL.getViewName())).addObject(
+			ViewModelNames.IS_ELEVATED_USER.getValue(),true).addObject(
 				ViewModelNames.PRODUCT.getValue(),
-				(new Product()).setLookupCode(StringUtils.EMPTY).setCount(0));
+					(new Product()).setLookupCode(StringUtils.EMPTY).setCount(0));
 	}
 
 	@RequestMapping(value = "/{productId}", method = RequestMethod.GET)
 	public ModelAndView startWithProduct(@PathVariable final UUID productId) {
+		// added addObject IS_ELEVATED_USER
 		final ModelAndView modelAndView =
-			new ModelAndView(ViewNames.PRODUCT_DETAIL.getViewName());
-
+			new ModelAndView(ViewNames.PRODUCT_DETAIL.getViewName()).addObject(
+				ViewModelNames.IS_ELEVATED_USER.getValue(),true);
+		
 		try {
 			modelAndView.addObject(
 				ViewModelNames.PRODUCT.getValue(),

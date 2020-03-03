@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import edu.uark.registerapp.commands.products.ProductCreateCommand;
 import edu.uark.registerapp.commands.products.ProductDeleteCommand;
@@ -61,10 +60,10 @@ public class ProductRestController extends BaseRestController {
 				response,
 				ViewNames.PRODUCT_LISTING.getRoute());
 
+		// TODO: Verify that the user associated with the current session is elevated
 		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
 			return elevatedUserResponse;
 		}
-		// TODO: Verify that the user associated with the current session is elevated
 		else
 		{
 		return this.productUpdateCommand
@@ -72,8 +71,7 @@ public class ProductRestController extends BaseRestController {
 			.setApiProduct(product)
 			.execute();
 		}
-		//ModelAndView modelAndView = new ModelAndView(, modelName, modelObject);
-		//modelAndView.addObject(attributeValue);
+
 	}
 
 	@RequestMapping(value = "/{productId}", method = RequestMethod.DELETE)
@@ -89,10 +87,10 @@ public class ProductRestController extends BaseRestController {
 				response,
 				ViewNames.PRODUCT_LISTING.getRoute());
 
+		// TODO: Verify that the user associated with the current session is elevated
 		if (!elevatedUserResponse.getRedirectUrl().equals(StringUtils.EMPTY)) {
 			return elevatedUserResponse;
 		}
-		// TODO: Verify that the user associated with the current session is elevated
 		else
 		{
 		this.productDeleteCommand

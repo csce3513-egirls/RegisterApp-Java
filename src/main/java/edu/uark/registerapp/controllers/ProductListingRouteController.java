@@ -12,18 +12,21 @@ import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Product;
 
 @Controller
-@RequestMapping(value = "/")
+@RequestMapping(value = "/productListing")
 public class ProductListingRouteController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showProductListing() {
+		// added addObject IS_ELEVATED_USER
 		ModelAndView modelAndView =
-			new ModelAndView(ViewNames.PRODUCT_LISTING.getViewName());
+			new ModelAndView(ViewNames.PRODUCT_LISTING.getViewName()).
+				addObject(ViewModelNames.IS_ELEVATED_USER.getValue(),true);
 
 		try {
 			modelAndView.addObject(
 				ViewModelNames.PRODUCTS.getValue(),
 				this.productsQuery.execute());
 		} catch (final Exception e) {
+			//System.out.println("There was an error: " + e + "\n");
 			modelAndView.addObject(
 				ViewModelNames.ERROR_MESSAGE.getValue(),
 				e.getMessage());
