@@ -24,21 +24,22 @@ public class MainMenuRouteController extends BaseRouteController {
 		final HttpServletRequest request
 	) {
 
-		/*final Optional<ActiveUserEntity> activeUserEntity =
+		final Optional<ActiveUserEntity> activeUserEntity =
 			this.getCurrentUser(request);
 		if (!activeUserEntity.isPresent()) {
-			return this.buildInvalidSessionResponse();
-		}*/
+			//return this.buildInvalidSessionResponse();
+		}
 		
 		ModelAndView modelAndView =
 			this.setErrorMessageFromQueryString(
 				new ModelAndView(ViewNames.MAIN_MENU.getViewName()),
 				queryParameters);
 
-		// TODO: Examine the ActiveUser classification if you want this information
+		// TODO: Examine the ActiveUser classification if you want this 
+		
 		modelAndView.addObject(
 			ViewModelNames.IS_ELEVATED_USER.getValue(),
-			true);
+			false);
 		
 		return modelAndView;
 	}
