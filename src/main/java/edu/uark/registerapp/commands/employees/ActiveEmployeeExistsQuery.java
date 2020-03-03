@@ -26,7 +26,7 @@ public class ActiveEmployeeExistsQuery implements ResultCommandInterface<Boolean
         if(activeEmployee != Boolean.TRUE) {
             throw new NotFoundException("No active users found.");
         }
-        return Boolean.TRUE;
+        else return Boolean.TRUE;
     }
     
 /*

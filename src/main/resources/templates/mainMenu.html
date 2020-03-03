@@ -21,22 +21,36 @@
 			<h4 id="errorMessage" class="error-message" th:text="${errorMessage}"></h4>
 		</div>
 
-		<!-- TODO: Add the various action button elements  style="visibility:hidden"-->
-		<button type="button" onclick="startTransaction()" id="startTransaction"> Start Transaction </button>
-		<div id="transaction"></div> 
-		
-		<a href="/productDetail/" class="button" onclick="viewProducts()" id="viewProducts">View Products</a>
-		
-		<button type="button" onclick="createEmployee()" id="createEmployee"> Create Employee </button>
-		<div id="employee"></div>
+		<!-- TODO: Add the various action button elements-->
+		<div>
+			<a href="javascript:displayError('Functionality has not yet been implemented.')" class="button" id="startTransactiontButton">Start Transaction</a><br>
+			<br>
+			<br>
+		</div>	
 
-		<button type="button" onclick="salesReport()" id="salesReport"> Sales Report </button> 
-		<div id="sales"></div> 
+		<div>
+			<a href="/productListing" class="button" id="viewProductsButton">View Products</a><br>
+			<br>
+			<br>
+		</div>
 		
-		<button type="button" onclick="cashierReport()" id="cashierReport"> Cashier Report </button> 
-		<div id="cashier"></div>
+		<div id="employeeDetailActionContainer" th:class="${!isElevatedUser} ? hidden : ''">
+			<a href="/employeeDetail/" class="button" id="createEmployeeButton">Create Employee</a><br>
+			<br>
+			<br>
+		</div>
 
-	</div>
+		<div id="salesReportActionContainer" th:class="${!isElevatedUser} ? hidden : ''">
+			<a href="javascript:displayError('Functionality has not yet been implemented.')" class="button" id="salesReportButton"> Sales Report</a><br>
+			<br />
+			<br />
+		</div>
+
+		<div id="cashierReportActionContainer" th:class="${!isElevatedUser} ? hidden : ''">
+			<a href="javascript:displayError('Functionality has not yet been implemented.')" class="button" id="cashierReportButton"> Cashier Report</a><br>
+			<br />
+			<br />
+		</div>	
 
 	<div class="hidden">
 		<input type="checkbox" id="isRefreshed" class="hidden">
@@ -55,45 +69,11 @@
 	</div>
 
 	<div class="footer">
-		<img id="signOutImage" onclick="signOut()" src="1xhand.png" alt="Sign Out" class="footer" />  Sign Out
+		<a href = '/'>
+			<img id="signOutImage" src="/images/1xhand.png" alt="Sign Out" class="footer" />
+		</a>
 	</div>
-		
-	<script>
-		Packages.edu.uark.registerapp.models.enums.EmployeeClassification;
 
-		function startTransaction() {
-			document.getElementById("transaction").innerHTML = "Functionality has not yet been implemented."; 
-		}
-		
-		function viewProducts() {
-			
-		}
-
-		function createEmployee() {
-			var classification = EmployeeClassification.getClassification;
-			if(classification == "Shift Manager" || classification == "General Manager") {
-				document.getElementById("createEmployee").style.visibility = 'visible';
-			}
-		}
-
-		function salesReport() {
-			document.getElementById("sales").innerHTML = "Functionality has not yet been implemented."; 
-			if(classification == "Shift Manager" || classification == "General Manager") {
-				document.getElementById("saleReport").style.visibility = 'visible';
-			}
-		}
-
-		function cashierReport() {
-			document.getElementById("cashier").innerHTML = "Functionality has not yet been implemented."; 
-			if(classification == "Shift Manager" || classification == "General Manager") {
-				document.getElementById("cashierReport").style.visibility = 'visible';
-			}
-		}
-
-		function signOut() {
-			alert("sign out");
-		}
-	</script>
 </body>
 
 </html>
