@@ -52,7 +52,6 @@ function saveActionClick(event) {
 
 			if (isSuccessResponse(callbackResponse)) {
 				displayEmployeeSavedAlertModal();
-
 				if ((callbackResponse.data != null)
 					&& (callbackResponse.data.id != null)
 					&& (callbackResponse.data.id.trim() !== "")) {
@@ -128,7 +127,7 @@ function getSavedAlertModalElement() {
 	return document.getElementById("employeeSavedAlertModal");
 }
 
-function getEmployeeeId() {
+function getEmployeeId() {
 	return getEmployeeIdElement().value;
 }
 function setEmployeeId(employeeId) {
@@ -149,7 +148,7 @@ function getEmployeeManagerId() {
 	return getEmployeeManagerIdElement().value;
 }
 function getEmployeeManagerIdElement() {
-	return document.getElementById("employeeMangerId");
+	return document.getElementById("employeeManagerId");
 }
 
 function getEmployeeFirstName() {
@@ -181,7 +180,7 @@ function getEmployeeReCheckPasswordElement() {
 }
 
 function getEmployeeType() {
-	return getEmployeeTpyeElement().value;
+	return getEmployeeTypeElement().value;
 }
 function getEmployeeTypeElement() {
 	return document.getElementById("employeeType");
