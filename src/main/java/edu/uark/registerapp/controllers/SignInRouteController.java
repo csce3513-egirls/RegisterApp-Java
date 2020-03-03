@@ -31,8 +31,7 @@ public class SignInRouteController extends BaseRouteController {
         catch(final Exception e){
             System.out.println("An error ocurred: " + e + "\n");
             return new ModelAndView(
-			REDIRECT_PREPEND.concat(
-			ViewNames.EMPLOYEE_DETAIL.getViewName()))
+			ViewNames.EMPLOYEE_DETAIL.getViewName())
 												.addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage())
 												.addObject("employee", new Employee());
         }      

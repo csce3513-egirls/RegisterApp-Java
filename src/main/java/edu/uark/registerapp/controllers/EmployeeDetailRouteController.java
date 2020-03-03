@@ -45,29 +45,38 @@ public class EmployeeDetailRouteController extends BaseRouteController {
         ModelAndView modelAndView = this.setErrorMessageFromQueryString(new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName()), queryParameters);
 
 
-        modelAndView.addObject(
-			ViewModelNames.IS_ELEVATED_USER.getValue(),
-			this.isElevatedUser(activeUserEntity.get()));
+        //modelAndView.addObject(
+		//	ViewModelNames.IS_ELEVATED_USER.getValue(),
+		//	this.isElevatedUser(activeUserEntity.get()));
 
        
 
 
         //TODO: I don't think the first half of this if statement is right
-        if (!this.activeUserExists() || this.isElevatedUser(activeUserEntity.get())){
+        try{
+            if (!this.activeUserExists() || this.isElevatedUser(activeUserEntity.get())){
 
-            return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
-            .addObject("employee", new Employee()); //TODO: Is this the right thing to return?
-
-        }else if(!activeUserEntity.isPresent()){
-            return this.buildInvalidSessionResponse();
-            //System.out.println("Error: requested employee detail is not for active employee.");
-            //return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute())).addObject("employeeSignIn", new EmployeeSignIn());
-        }else{
-            //TODO: Is this the rigth response?
-            return this.buildNoPermissionsResponse();
-           // System.out.println("An error occurred. Redirecting to main menu.");
-           // return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.MAIN_MENU.getRoute()));
+                return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
+                .addObject("employee", new Employee()); //TODO: Is this the right thing to return?
+    
+            }else if(!activeUserEntity.isPresent()){
+                return this.buildInvalidSessionResponse();
+                //System.out.println("Error: requested employee detail is not for active employee.");
+                //return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.SIGN_IN.getRoute())).addObject("employeeSignIn", new EmployeeSignIn());
+            }else{
+                //TODO: Is this the rigth response?
+                return this.buildNoPermissionsResponse();
+               // System.out.println("An error occurred. Redirecting to main menu.");
+               // return new ModelAndView(REDIRECT_PREPEND.concat(ViewNames.MAIN_MENU.getRoute()));
+            }
+        }catch (NotFoundException e){
+            return new ModelAndView(
+                REDIRECT_PREPEND.concat(
+                ViewNames.EMPLOYEE_DETAIL.getViewName()))
+                                                    .addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage())
+                                                    .addObject("employee", new Employee());
         }
+        
         ///MAYBE DONE
 		//return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
 		//						.addObject("employee", new Employee());
