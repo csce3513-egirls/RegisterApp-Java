@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import edu.uark.registerapp.commands.activeUsers.ValidateActiveUserCommand;
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
+import edu.uark.registerapp.commands.employees.EmployeeCreateCommand;
+import edu.uark.registerapp.commands.employees.EmployeeUpdateCommand;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
@@ -68,8 +70,8 @@ public class EmployeeRestController extends BaseRestController {
 		}
 
         // TODO: Create an employee;
-        ///NEED TASK 12
-		final Employee createdEmployee = new Employee();
+        ///task 12 stuff below
+		final Employee createdEmployee = employeeCreateCommand.setApiEmployee(employee).execute();
 
 		if (isInitialEmployee) {
 			createdEmployee
@@ -107,9 +109,13 @@ public class EmployeeRestController extends BaseRestController {
 			return elevatedUserResponse; //TODO: I think this is already done?
 		}
 
-        ///NEED TASK 12 FOR THIS
-		// TODO: Update the employee
-		return employee;
+
+        
+        //task 12 stuff
+        Employee updatedEmployee = employeeUpdateCommand.setApiEmploye(employee).setEmployeeId(employeeId).execute();
+        
+        //Used to be return employee, the variable from the parameters
+		return updatedEmployee;
     }
     
 
@@ -118,4 +124,8 @@ public class EmployeeRestController extends BaseRestController {
     private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
     @Autowired
     private ValidateActiveUserCommand validateActiveUserCommand;
+    @Autowired
+    private EmployeeCreateCommand employeeCreateCommand;
+    @Autowired
+    private EmployeeUpdateCommand employeeUpdateCommand;
 }

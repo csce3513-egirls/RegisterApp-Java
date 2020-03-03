@@ -6,7 +6,8 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang3.StringUtils; 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,17 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-<<<<<<< HEAD
-=======
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.commands.exceptions.UnauthorizedException;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
->>>>>>> 2724cca8c3a292e3e943e2e3e7cc4601183abe19
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Employee;
 import edu.uark.registerapp.models.entities.ActiveUserEntity;
 import edu.uark.registerapp.models.api.EmployeeSignIn;
+import edu.uark.registerapp.commands.employees.EmployeeQuery;
 
 @Controller
 @RequestMapping(value = "/employeeDetail")
@@ -90,20 +89,20 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 			return this.buildNoPermissionsResponse();
 		}
 
-        //NEED TASK 12 TO BE DONE
-		// TODO: Query the employee details using the request route parameter
+
+        //Task 12 stuff
+        Employee employee = employeeQuery.setEmployeeId(employeeId).execute();
+
+
+       
+		// TODO: Query the employee details using the request route parameter// maybe done
 		// TODO: Serve up the page
 		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
-								.addObject("employee", new Employee());
+								.addObject("employee", employee);
 								
 	}
 	// Helper methods
 	private boolean activeUserExists() {
-<<<<<<< HEAD
-		// TODO: Helper method to determine if any active users Exist
-		return true;
-	}
-=======
 
         
 		// Helper method to determine if any active users Exist
@@ -115,8 +114,10 @@ public class EmployeeDetailRouteController extends BaseRouteController {
     @Autowired
     private ActiveEmployeeExistsQuery activeEmployeeExistsQuery;
 
+    @Autowired
+    private EmployeeQuery employeeQuery;
+
   //  @Autowired
   //  private ValidateActiveUserCommand validateActiveUserCommand;
->>>>>>> 2724cca8c3a292e3e943e2e3e7cc4601183abe19
 
 }
