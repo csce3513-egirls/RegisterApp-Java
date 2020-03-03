@@ -36,12 +36,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 		// TODO: Logic to determine if the user associated with the current session
 		//  is able to create an employee
 
-<<<<<<< Updated upstream
-		
-		return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
-								.addObject("employee", (new Employee()).setFirstName(StringUtils.EMPTY).setLastName(StringUtils.EMPTY)); //
-									//"employee", new Employee());
-=======
         final Optional<ActiveUserEntity> activeUserEntity =
             this.getCurrentUser(request);
             
@@ -76,7 +70,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
         ///MAYBE DONE
 		//return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
 		//						.addObject("employee", new Employee());
->>>>>>> Stashed changes
 	}
 
 	@RequestMapping(value = "/{employeeId}", method = RequestMethod.GET)
@@ -126,15 +119,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	}
 	// Helper methods
 	private boolean activeUserExists() {
-<<<<<<< Updated upstream
-		// TODO: Helper method to determine if any active users Exist
-		return true;
-	}
-////////////
-	// Properties
-	@Autowired
-	private EmployeeQuery employeeQuery;
-=======
 
         
 		// Helper method to determine if any active users Exist
@@ -148,6 +132,5 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
   //  @Autowired
   //  private ValidateActiveUserCommand validateActiveUserCommand;
->>>>>>> Stashed changes
 
 }
