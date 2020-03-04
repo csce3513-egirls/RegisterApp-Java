@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.uark.registerapp.commands.employees.ActiveEmployeeExistsQuery;
 import edu.uark.registerapp.commands.exceptions.NotFoundException;
 import edu.uark.registerapp.commands.exceptions.UnauthorizedException;
+import edu.uark.registerapp.controllers.enums.QueryParameterMessages;
+import edu.uark.registerapp.controllers.enums.QueryParameterNames;
 import edu.uark.registerapp.controllers.enums.ViewModelNames;
 import edu.uark.registerapp.controllers.enums.ViewNames;
 import edu.uark.registerapp.models.api.Employee;
@@ -31,7 +34,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView start(
 		@RequestParam final Map<String, String> queryParameters,
-		final HttpServletRequest request
+        final HttpServletRequest request
 	) {
 		
 		
@@ -56,6 +59,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
         try{
             if (!this.activeUserExists() || this.isElevatedUser(activeUserEntity.get())){
 
+                System.out.println("Inside");
                 return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
                 .addObject("employee", new Employee()); //TODO: Is this the right thing to return?
     
@@ -71,8 +75,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
             }
         }catch (NotFoundException e){
             return new ModelAndView(
-                REDIRECT_PREPEND.concat(
-                ViewNames.EMPLOYEE_DETAIL.getViewName()))
+                ViewNames.EMPLOYEE_DETAIL.getViewName())
                                                     .addObject(ViewModelNames.ERROR_MESSAGE.getValue(),e.getMessage())
                                                     .addObject("employee", new Employee());
         }
@@ -86,16 +89,29 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 	public ModelAndView startWithEmployee(
 		@PathVariable final UUID employeeId,
 		@RequestParam final Map<String, String> queryParameters,
-		final HttpServletRequest request
+        final HttpServletRequest request
 	) {
 
 		final Optional<ActiveUserEntity> activeUserEntity =
 			this.getCurrentUser(request);
 
 		if (!activeUserEntity.isPresent()) {
-			return this.buildInvalidSessionResponse();
+            return new ModelAndView(ViewNames.SIGN_IN.getRoute());
+			return new ModelAndView(
+                
+                   ViewNames.SIGN_IN.getRoute().concat(
+                      this.buildInitialQueryParameter(
+                         QueryParameterNames.ERROR_CODE.getValue(),
+                             QueryParameterMessages.SESSION_NOT_ACTIVE.getKeyAsString())));
+
 		} else if (!this.isElevatedUser(activeUserEntity.get())) {
-			return this.buildNoPermissionsResponse();
+            //return this.buildNoPermissionsResponse();
+            return new ModelAndView(ViewNames.MAIN_MENU.getRoute());
+           return new ModelAndView(
+                    ViewNames.SIGN_IN.getRoute().concat(
+                        this.buildInitialQueryParameter(
+                            QueryParameterNames.ERROR_CODE.getValue(),
+                            QueryParameterMessages.NO_PERMISSIONS_TO_VIEW.getKeyAsString())));
 		}
 
 
