@@ -59,7 +59,6 @@ public class EmployeeDetailRouteController extends BaseRouteController {
         try{
             if (!this.activeUserExists() || this.isElevatedUser(activeUserEntity.get())){
 
-                System.out.println("Inside");
                 return new ModelAndView(ViewNames.EMPLOYEE_DETAIL.getViewName())
                 .addObject("employee", new Employee()); //TODO: Is this the right thing to return?
     
@@ -96,7 +95,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 			this.getCurrentUser(request);
 
 		if (!activeUserEntity.isPresent()) {
-            return new ModelAndView(ViewNames.SIGN_IN.getRoute());
+
 			return new ModelAndView(
                 
                    ViewNames.SIGN_IN.getRoute().concat(
@@ -106,7 +105,7 @@ public class EmployeeDetailRouteController extends BaseRouteController {
 
 		} else if (!this.isElevatedUser(activeUserEntity.get())) {
             //return this.buildNoPermissionsResponse();
-            return new ModelAndView(ViewNames.MAIN_MENU.getRoute());
+          
            return new ModelAndView(
                     ViewNames.SIGN_IN.getRoute().concat(
                         this.buildInitialQueryParameter(

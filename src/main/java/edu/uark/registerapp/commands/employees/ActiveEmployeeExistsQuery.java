@@ -24,7 +24,6 @@ public class ActiveEmployeeExistsQuery implements ResultCommandInterface<Boolean
     public Boolean execute() {
         final Boolean activeEmployee = this.employeeRepository.existsByIsActive(true);
         if(activeEmployee != Boolean.TRUE) {
-            System.out.println("In activeEmployeeExistsQuery about to throw");
             throw new NotFoundException("No active users found.");
         }
         else return Boolean.TRUE;
